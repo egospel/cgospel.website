@@ -1,0 +1,121 @@
+<nav class="nav row">
+  <div>
+    <img class="cgBlue" src="/cgBlue.png" alt="CG Logo">
+  </div>
+  <div class="nav__profile row">
+    <h3 class="nav__profile__name">
+      <h1>Account Delete</h1>
+    </h3>
+  </div>
+</nav>
+
+<form action="" method="post">
+  <div class="input__box">
+    <p class="label">Registered Phone Number:</p>
+    <div class="input">
+      <input type="text" placeholder="+" name="redirectURL" id="redirectURL" required>
+    </div>
+  </div>
+  <div class="input__box">
+    <p class="label">Password:</p>
+    <div class="input">
+      <input type="text" name="redirectURL" id="password" required>
+    </div>
+  </div>
+  <select class="select" name="account_deletion_reason" id="account_deletion_reason">
+    <option value="" disabled selected>Select a reason for deleting your account</option>
+    <option value="not_appropriate">Platform is not appropriate</option>
+    <option value="misleading_ads">Misleading ads</option>
+    <option value="unusual_behavior">Unusual behavior or security concerns</option>
+    <option value="privacy_concerns">Privacy concerns</option>
+    <option value="too_many_notifications">Too many notifications</option>
+    <option value="difficult_to_use">Platform is difficult to use</option>
+    <option value="content_not_relevant">Content not relevant</option>
+    <option value="prefer_different_platform">Prefer a different platform</option>
+    <option value="high_costs">Costs or fees are too high</option>
+    <option value="frequent_bugs">Frequent bugs or crashes</option>
+    <option value="unmet_expectations">Unmet expectations</option>
+    <option value="lack_of_features">Lack of features</option>
+    <option value="harmful_content">Concerns over misleading or harmful content</option>
+    <option value="account_hacked">Account hacked or compromised</option>
+  </select>
+
+  <div class="textarea__div">
+    <textarea name="description" id="description"></textarea>
+  </div>
+  <button>submit</button>
+</form>
+<style>
+  .nav {
+    width: 100%;
+    height: 100px;
+    padding: 0 50px;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .cgBlue {
+    height: 70px;
+    width: fit-content;
+    object-fit: contain;
+  }
+
+  .nav__profile {
+    align-items: center;
+    gap: 20px;
+  }
+
+  .nav__profile__img {
+    height: 50px;
+    width: 50px;
+    border-radius: 50%;
+    object-fit: cover;
+    object-position: center;
+  }
+
+  .nav__header {
+    padding: 20px 0;
+    border-top: 1px solid #ccc;
+    border-bottom: 1px solid #ccc;
+  }
+
+  .nav__header__item {
+    width: 90%;
+    justify-content: space-between;
+
+  }
+
+  .advertisement__form__container {
+    width: 100%;
+    height: 100%;
+    padding: 20px;
+  }
+
+  .advertisement__form {
+    width: 90%;
+    gap: 20px;
+  }
+
+  .input__box .label {
+    font-size: 1.3rem;
+    font-weight: 500;
+    color: black;
+    font-weight: 600;
+    letter-spacing: 1px;
+    padding-bottom: 10px;
+  }
+
+  .textarea__div {
+    width: 100%;
+    height: 200px;
+  }
+
+  .textarea__div textarea {
+    width: 100%;
+    height: 100%;
+    resize: none;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+</style>

@@ -1,0 +1,46 @@
+<div class="about">
+  <div class="about__header">
+    <h1>About <span id="aboutUsername"></span></h1>
+  </div>
+  <div class="about__container row">
+    <div class="about__item">
+      <img src="" id="about__img" alt="">
+    </div>
+    <div class="about__item">
+      <h2 id="about__fullName"></h2>
+      <p id="about__mobile"></p>
+      <p id="about__dob"></p>
+      <p id="about__description"></p>
+      <div>
+        <div>
+          <h3> Other Information </h3>
+        </div>
+        <div>
+          <p id="about__createdAt"></p>
+          <p id="about__modifiedAt"></p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<script type="module">
+  const locationSplit = window.location.pathname.split('/')
+  const userID = locationSplit[locationSplit.length - 1]
+  console.log(userID)
+  axios.get(`/ouhatjuusdtnwot/about/user/${userID}`).then(
+    res => {
+      if (res.data.success) {
+        const user = res.data.data
+        document.getElementById('aboutUsername').innerText = user.name
+        document.getElementById('about__img').src = user.profile
+        document.getElementById('about__fullName').innerText = user.name
+        document.getElementById('about__mobile').innerText = user.mobile
+        document.getElementById('about__dob').innerText = `Date of Birth: ${new Date(user.dateOfBirth).toDateString()}`
+        document.getElementById('about__description').innerText = user.about
+        document.getElementById('about__createdAt').innerText = `Created At: ${new Date(user.createdAt).toDateString()}`
+        document.getElementById('about__modifiedAt').innerText = `Modified At: ${new Date(user.modifiedAt).toDateString()}`
+        console.log(user)
+      }
+    }
+  )
+</script>

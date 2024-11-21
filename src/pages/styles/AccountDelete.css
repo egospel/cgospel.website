@@ -1,0 +1,13 @@
+.delete{
+    width: 100%;
+}
+.delete__item{
+    width: 50%;
+    height: 100%;
+}
+.delete__form{
+    width: 100%;
+}
+.input{
+    background: #fff;
+}

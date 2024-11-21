@@ -1,0 +1,11 @@
+.total__card {
+    background-color: var(--tuna);
+}
+
+.unverified__card {
+    background-color: #ff9800;
+}
+
+.suspended__card {
+    background-color: #f44336;
+}

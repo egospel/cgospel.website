@@ -1,0 +1,299 @@
+<link rel="stylesheet" href="/user.css">
+<div class="data__search">
+  <form action="/ouhatjuusdtnwot/search/user" id="searchUser" method="get" class="search__form row">
+    <div class="input">
+      <input type="text" name="search" id="search" placeholder="Search for users" autofocus autocomplete="name">
+    </div>
+    <div>
+      <select class="searchFilter" name="typeSearch" id="">
+        <option value="name">Filters</option>
+        <option value="name" default>By Name</option>
+        <option value="mobile">By Mobile</option>
+      </select>
+    </div>
+    <button class="search__btn" type="submit">Search</button>
+  </form>
+</div>
+<div class="information row">
+  <div class="information__card total__card col">
+    <div class="information__card__title">
+      Total Users
+    </div>
+    <div class="information__card__count" id="totalUser">
+      0
+    </div>
+  </div>
+  <div class="information__card unverified__card col">
+    <div class="information__card__title">
+      Unverified Users
+    </div>
+    <div class="information__card__count" id="unverifiedUser">
+      0
+    </div>
+  </div>
+  <div class="information__card suspended__card col">
+    <div class="information__card__title">
+      Suspended Users
+    </div>
+    <div class="information__card__count" id="suspendedCount">
+      0
+    </div>
+  </div>
+</div>
+<div class="suspended__container">
+  <div class="suspended__header row">
+    <div>
+      <h2>Suspended Users</h2>
+    </div>
+    <div>
+      <a href="/ouhatjuusdtnwot/suspended/churches" class="suspended__viewAll">
+        <button>View All</button>
+      </a>
+    </div>
+  </div>
+  <div class="suspended__card__container row" id="suspended__container">
+  </div>
+</div>
+<div class="suspended__container">
+  <div class="suspended__header row">
+    <div>
+      <h2>Unverified Users</h2>
+    </div>
+    <div>
+      <a href="/ouhatjuusdtnwot/suspended/churches" class="suspended__viewAll">
+        <button>View All</button>
+      </a>
+    </div>
+  </div>
+  <div class="suspended__card__container row" id="unverified__container">
+  </div>
+</div>
+<div class="suspended__container">
+  <div class="suspended__header row">
+    <div>
+      <h2>All Users</h2>
+    </div>
+    <div>
+      <a href="/ouhatjuusdtnwot/suspended/churches" class="suspended__viewAll">
+        <button>View All</button>
+      </a>
+    </div>
+  </div>
+  <div class="suspended__card__container row" id="user__container">
+  </div>
+</div>
+<style>
+  .suspended__header {
+    padding: 20px 0;
+    justify-content: space-between;
+  }
+
+  .suspended__viewAll {
+    color: var(--tuna);
+  }
+
+  .suspended__card__container {
+    width: 100%;
+    height: fit-content;
+    background-color: #f6f8ff6b;
+  }
+
+  .no__suspended {
+    width: 100%;
+    height: 100%;
+  }
+
+  .card {
+    width: 300px;
+    background: white;
+    padding: .4em;
+    display: block;
+    height: 380px;
+    border-radius: 6px;
+  }
+
+  .card-image {
+    width: 100%;
+    height: 250px;
+    border-radius: 6px 6px 0 0;
+  }
+
+
+
+  .card-image:hover {
+    transform: scale(0.98);
+  }
+
+  .card-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    border-radius: 6px 6px 0 0;
+  }
+
+  .category {
+    text-transform: uppercase;
+    font-size: 0.7em;
+    font-weight: 600;
+    padding: 10px 7px 0;
+  }
+
+  .category.suspended {
+    color: #f44336;
+  }
+
+  .category:hover {
+    cursor: pointer;
+  }
+
+  .heading {
+    font-weight: 600;
+    color: rgb(88, 87, 87);
+    padding: 7px;
+  }
+
+  .heading:hover {
+    cursor: pointer;
+  }
+
+  .author {
+    color: gray;
+    font-weight: 400;
+    font-size: 11px;
+    padding-top: 20px;
+  }
+
+  .name {
+    font-weight: 600;
+  }
+
+  .name:hover {
+    cursor: pointer;
+  }
+</style>
+<script type="module">
+  axios.get('/ouhatjuusdtnwot/user/count/suspended').then(res => {
+    document.getElementById('suspendedCount').innerHTML = res.data
+  }).catch(err => {
+    console.log(err)
+  })
+  axios.get('/ouhatjuusdtnwot/user/count/unverified').then(res => {
+    document.getElementById('unverifiedUser').innerHTML = res.data
+  }).catch(err => {
+    console.log(err)
+  })
+  axios.get('/ouhatjuusdtnwot/user/count/total').then(res => {
+    document.getElementById('totalUser').innerHTML = res.data
+  }).catch(err => {
+    console.log(err)
+  })
+
+  // Template
+  let locationTemplate = (location) => {
+    if (location === null) {
+      return `<div class="location row">
+            <img src="/pin.svg" class="location__img" alt="">
+            <div class="location__data row">
+              Location not available
+            </div>
+            </div>`
+    } else {
+      return `<div class="location row">
+            <img src="/pin.svg" class="location__img" alt="">
+            <div class="location__data row">
+              <div>${location.city}</div>
+              <div>,</div>
+              <div>${location.country}</div>
+            </div>`
+    }
+  }
+  const accountTagTemplate = (user) => {
+    if (user.suspended === true) {
+      return `<div class="account__tag">
+            <p>Suspended</p>
+          </div>`
+    } else if (user.verified === false) {
+      return `<div class="account__tag">
+            <p>Unverified</p>
+          </div>`
+    } else {
+      return `<div class="account__tag">
+            <p>Active</p>
+          </div>`
+    }
+  }
+  let userCardTemplate = (user) => {
+    return `<a class="user__card" href="/ouhatjuusdtnwot/user/about/${user._id}">
+      <div class="suspended__card__image">
+        <img src="${user.profile}" class="suspended__card__img" alt="">
+      </div>
+      <div class="suspended__card__content">
+        <div class="suspended__card__title">
+          <h3>${user.name}</h3>
+        </div>
+        <div class="suspended__card__description">
+          <div>${user.mobile}</div>
+          ${accountTagTemplate(user)}
+        </div>
+      </div>
+    </a>`
+  }
+
+  axios.get('/ouhatjuusdtnwot/user/return/4suspended').then(
+    res => {
+      if (res.data.success) {
+        if (res.data.data.length === 0) {
+          document.getElementById('suspended__container').innerHTML = `<div class="no__user">
+            <h2>No Suspended Users</h2>
+            </div>`
+        } else {
+          const suspendedContainer = document.getElementById('suspended__container')
+          suspendedContainer.innerHTML = res.data.data.map(user => userCardTemplate(user)).join('')
+        }
+      } else {
+        alert('Error')
+        console.log(res.data)
+      }
+    }
+  ).catch(
+    err => {
+      console.log(err)
+    }
+  )
+
+  axios.get('/ouhatjuusdtnwot/user/return/4unverified').then(
+    res => {
+      if (res.data.success) {
+        if (res.data.data.length === 0) {
+          document.getElementById('unverified__container').innerHTML = `<div class="no__user">
+            <h2>No Unverified Users</h2>
+            </div>`
+        } else {
+          document.getElementById('unverified__container').innerHTML = res.data.data.map(user => userCardTemplate(user)).join('')
+        }
+      } else {
+        alert('Error')
+        console.log(res.data)
+      }
+    }
+  ).catch(
+    err => {
+      console.log(err)
+    }
+  )
+  axios.get('/ouhatjuusdtnwot/user/return/4users').then(
+    res => {
+      if (res.data.success) {
+        document.getElementById('user__container').innerHTML = res.data.data.map(user => userCardTemplate(user)).join('')
+      } else {
+        alert('Error')
+        console.log(res.data)
+      }
+    }
+  ).catch(
+    err => {
+      console.log(err)
+    }
+  )
+</script>

@@ -1,0 +1,230 @@
+<nav class="nav row">
+  <div>
+    <img class="cgBlue" src="/cgBlue.png" alt="CG Logo">
+  </div>
+  <div class="nav__profile row">
+    <h3 class="nav__profile__name">
+      <%= user.name %>
+    </h3>
+    <img class="nav__profile__img" src="<%=user.profile%>" alt="User Profile">
+  </div>
+</nav>
+<div class="nav__header row cent">
+  <div class="nav__header__item row">
+    <h1>Advertisement</h1>
+  </div>
+</div>
+<div class="advertisement__form__container cent">
+  <form action="" class="advertisement__form col">
+    <div class="input__box">
+      <p class="label">Title:</p>
+      <div class="input">
+        <input type="text" name="title" id="title" required>
+      </div>
+    </div>
+    <div class="advertisement__preview__container">
+      <img src="" alt="" class="advertisement__preview">
+    </div>
+
+    <label class="camera__icon" id="" for="advertisement__image">
+      <img src="/camera.svg" alt="camera">
+      <input type="file" class="advertisement__image__input" id="advertisement__image" name="advertisement__image" accept="image/png, image/jpeg" required>
+    </label>
+    <div>
+      <p class="advertisement__preview__txt">Advertisement image ratio is 16:10 (example: 350px x 219px)</p>
+    </div>
+    <div class="input__box">
+      <p class="label">Redirect Url:</p>
+      <div class="input">
+        <input type="text" name="redirectURL" id="redirectURL" required>
+      </div>
+    </div>
+    <p class="advertisement__note">Note: This url is used to redirect user when they click on advertisement. </p>
+
+    <div class="input__box">
+      <p class="label">Description:</p>
+      <div class="textarea__div">
+        <textarea name="description" id="description"></textarea>
+      </div>
+    </div>
+    <div>
+      <p class="advertisement__note">Note: Only Image is used to show as advertisement. Other information is used to find appropriate user to show. </p>
+    </div>
+    <button class="advertisement__btn">Submit</button>
+  </form>
+</div>
+<script>
+  const imagePreviewInput = document.getElementById('advertisement__image');
+  const imagePreviewContainer = document.querySelector('.advertisement__preview__container');
+  imagePreviewInput.addEventListener('change', (e) => {
+    const file = e.target.files[0];
+    const reader = new FileReader();
+    reader.onload = () => {
+      imagePreviewContainer.style.display = 'block';
+      const image = document.querySelector('.advertisement__preview');
+      image.src = reader.result;
+    }
+    reader.readAsDataURL(file);
+  });
+  const advertisementForm = document.querySelector('.advertisement__form');
+  advertisementForm.addEventListener('submit', (e) => {
+    e.preventDefault();
+    grecaptcha.enterprise.ready(async () => {
+      const token = await grecaptcha.enterprise.execute('6Lcu6DsqAAAAAIFMTsE8fBdXF8kX2y_ySJo0QYxf', {
+        action: 'LOGIN'
+      });
+      const formData = new FormData(advertisementForm);
+      formData.append('token', token);
+      fetch(`${window.location.href}`, {
+        method: 'POST',
+        body: formData
+      }).then(res => res.json()).then(data => {
+        if (data.status === false) {
+          advertisementForm.reset();
+          alert('Advertisement added successfully');
+        } else {
+          alert(data.message);
+        }
+      }).catch(err => {
+        console.log(err);
+      });
+    });
+  })
+</script>
+<style>
+  .nav {
+    width: 100%;
+    height: 100px;
+    padding: 0 50px;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .cgBlue {
+    height: 70px;
+    width: fit-content;
+    object-fit: contain;
+  }
+
+  .nav__profile {
+    align-items: center;
+    gap: 20px;
+  }
+
+  .nav__profile__img {
+    height: 50px;
+    width: 50px;
+    border-radius: 50%;
+    object-fit: cover;
+    object-position: center;
+  }
+
+  .nav__header {
+    padding: 20px 0;
+    border-top: 1px solid #ccc;
+    border-bottom: 1px solid #ccc;
+  }
+
+  .nav__header__item {
+    width: 90%;
+    justify-content: space-between;
+
+  }
+
+  .advertisement__btn {
+    width: fit-content;
+    height: fit-content;
+    background-color: #0F1033;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+
+  .advertisement__form__container {
+    width: 100%;
+    height: 100%;
+    padding: 20px;
+  }
+
+  .advertisement__form {
+    width: 90%;
+    gap: 20px;
+  }
+
+  .input__box .label {
+    font-size: 1.3rem;
+    font-weight: 500;
+    color: black;
+    font-weight: 600;
+    letter-spacing: 1px;
+    padding-bottom: 10px;
+  }
+
+  .textarea__div {
+    width: 100%;
+    height: 200px;
+  }
+
+  .textarea__div textarea {
+    width: 100%;
+    height: 100%;
+    resize: none;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+
+  .advertisement__preview__container {
+    width: 100%;
+    max-width: 350px;
+    height: 218px;
+    display: none;
+    border: 1px solid #0F1033;
+    border-radius: 5px;
+  }
+
+  .advertisement__preview__container img {
+    width: 100%;
+    height: 100%;
+    aspect-ratio: 16/10;
+    object-fit: cover;
+  }
+
+  .camera__icon {
+    width: fit-content;
+    height: fit-content;
+    padding: 7px 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    border: 1px solid #0F1033;
+  }
+
+  .camera__icon img {
+    width: 30px;
+    height: 30px;
+    object-fit: contain;
+  }
+
+  .advertisement__image__input {
+    display: none;
+  }
+
+  .advertisement__preview__txt {
+    font-size: 14px;
+    color: #0F1033;
+  }
+
+  .advertisement__note {
+    font-size: 14px;
+    color: #0F1033;
+    text-align: justify;
+  }
+
+  @media screen and (max-width: 768px) {
+    .nav__profile__name {
+      display: none;
+    }
+  }
+</style>
+<script src="https://www.google.com/recaptcha/enterprise.js?render=6Lcu6DsqAAAAAIFMTsE8fBdXF8kX2y_ySJo0QYxf"></script>

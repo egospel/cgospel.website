@@ -1,0 +1,144 @@
+<aside class="aside__nav col cent">
+
+  <div class="aside__logo__container cent">
+
+    <img class="aside__logo" src="/Calvary.png" alt="">
+  </div>
+  <div class="aside__nav__main col ">
+    <div class="aside__nav__link__item row aside__active">
+      <div class="left__border"></div>
+      <a href="/ouhatjuusdtnwot" class="aside__nav__inner row">
+        <img class="aside__nav__icon" src="/home.svg" alt="">
+        <p class="aside__nav__txt">Home</p>
+      </a>
+    </div>
+    <div class="aside__nav__link__item row">
+      <div class="left__border"></div>
+      <a href="/ouhatjuusdtnwot/users" class="aside__nav__inner row">
+        <img class="aside__nav__icon" src="/users.svg" alt="">
+        <p class="aside__nav__txt">Users</p>
+      </a>
+    </div>
+    <div class="aside__nav__link__item row">
+      <div class="left__border"></div>
+      <a href="/ouhatjuusdtnwot/churches" class="aside__nav__inner row">
+        <img class="aside__nav__icon" src="/church.svg" alt="">
+        <p class="aside__nav__txt">Churches</p>
+      </a>
+    </div>
+    <div class="aside__nav__link__item row">
+      <div class="left__border"></div>
+      <a href="/ouhatjuusdtnwot/churches" class="aside__nav__inner row">
+        <img class="aside__nav__icon" src="/church.svg" alt="">
+        <p class="aside__nav__txt">Content</p>
+      </a>
+    </div>
+    <div class="aside__nav__link__item row">
+      <div class="left__border"></div>
+      <a href="/ouhatjuusdtnwot/queries" class="aside__nav__inner row">
+        <img class="aside__nav__icon" src="/question.svg" alt="">
+        <p class="aside__nav__txt">Queries</p>
+      </a>
+    </div>
+    <div class="aside__nav__link__item row">
+      <div class="left__border"></div>
+      <a href="/ouhatjuusdtnwot/inform" class="aside__nav__inner row">
+        <img class="aside__nav__icon" src="/news.svg" alt="">
+        <p class="aside__nav__txt">Inform</p>
+      </a>
+    </div>
+    <div class="aside__nav__link__item row">
+      <div class="left__border"></div>
+      <a href="/ouhatjuusdtnwot/advertisements" class="aside__nav__inner row">
+        <img class="aside__nav__icon" src="/ad.svg" alt="">
+        <p class="aside__nav__txt">Advertisements</p>
+      </a>
+    </div>
+
+    <div class="aside__nav__link__item row">
+      <div class="left__border"></div>
+      <a href="/ouhatjuusdtnwot/logs" class="aside__nav__inner row">
+        <img class="aside__nav__icon" src="/log.svg" alt="">
+        <p class="aside__nav__txt">Log Manger</p>
+      </a>
+    </div>
+    <div class="aside__nav__link__item row">
+      <div class="left__border"></div>
+      <a href="/ouhatjuusdtnwot/settings" class="aside__nav__inner row">
+        <img class="aside__nav__icon" src="/cog.svg" alt="">
+        <p class="aside__nav__txt">Settings</p>
+      </a>
+    </div>
+  </div>
+  <div class="logout__aside cent">
+    <a href="/ouhatjuusdtnwot/logout" class="aside__nav__inner row">
+      <img class="aside__nav__icon" src="/logout.svg" alt="">
+      <p class="aside__nav__txt">Logout</p>
+    </a>
+  </div>
+</aside>
+
+<style>
+  .aside__nav {
+    width: 350px;
+    height: 100vh;
+    position: fixed;
+    color: white;
+    justify-content: flex-start;
+    background-color: var(--white);
+    border-right: 1px solid #ccd0d6;
+
+  }
+
+  .aside__logo__container {
+    width: 100%;
+    height: 150px;
+  }
+
+  .aside__logo {
+    width: 60%;
+    height: 60%;
+    object-fit: contain;
+  }
+
+  .aside__nav__main {
+    width: 100%;
+    gap: 10px;
+  }
+
+  .aside__nav__link__item {
+    width: 100%;
+    height: 50px;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .aside__active .left__border {
+    width: 3px;
+    height: 100%;
+    background-color: var(--white);
+  }
+
+  .aside__nav__inner {
+    width: 90%;
+    align-items: center;
+  }
+
+  .aside__nav__icon {
+    width: 30px;
+    height: 30px;
+  }
+
+  .aside__nav__txt {
+    color: #000000;
+    font-size: 1.2rem;
+    padding-left: 30px;
+  }
+
+  .logout__aside {
+    position: absolute;
+    bottom: 0;
+    width: 70%;
+    padding: 20px 0;
+  }
+</style>

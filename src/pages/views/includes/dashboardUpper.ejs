@@ -1,0 +1,47 @@
+<nav class="dashboard__upper row">
+  <div>
+    <div class="greeting__nav row">
+      <h3>Welcome Back,</h3>
+      <h2><%= admin.name %></h2>
+    </div>
+  </div>
+  <div class="dashboard__upper__other row">
+    <% if(admin.access === 'superAdmin' || admin.access === 'developer'){ %>
+    <div class="xorblinDashboardOpen">
+      <a href="https://p1gbaoczyz.xorblin.com/" target="_blank" rel="noopener noreferrer">
+        <img src="/xorblinArrow.svg" width="30" alt="">
+      </a>
+    </div>
+    <% } %>
+    <div>
+      <%= admin.email %>
+    </div>
+  </div>
+</nav>
+<style>
+  .dashboard__upper {
+    width: 100%;
+    height: 100px;
+    align-items: center;
+    padding: 0 20px;
+    background-color: var(--white);
+    justify-content: space-between;
+    border-bottom: 1px solid #ccd0d6;
+  }
+
+
+  .greeting__nav {
+    align-items: baseline;
+  }
+
+  .greeting__nav h2 {
+    padding-left: 10px;
+  }
+
+  .dashboard__upper__other {
+    gap: 20px;
+    align-items: center;
+  }
+
+  .xorblinDashboardOpen {}
+</style>

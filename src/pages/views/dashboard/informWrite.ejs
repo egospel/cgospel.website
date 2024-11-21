@@ -1,0 +1,99 @@
+<div class="informWrite col cent">
+  <form class="informWrite__form col" action="">
+    <div class="informWrite__header row">
+      <div class="">
+        <h2>Write New Inform</h2>
+      </div>
+      <div>
+        <button class="inform__submit">Save</button>
+      </div>
+    </div>
+    <div class="image__preview__item">
+      <img id="image__preview" src="https://placehold.co/500x300" alt="">
+    </div>
+    <div>
+      <p class="label">Inform Image <span class="required">*</span></p>
+      <div class="input">
+        <input type="file" name="informImage" id="informImage" accept="image/png, image/jpeg, image/jpg" required>
+      </div>
+    </div>
+    <div>
+      <p class="label">Inform Title <span class="required">*</span></p>
+      <div class="input">
+        <input type="text" name="informArticle" id="search" placeholder="eg: How Church Are Making Progress" autofocus required>
+      </div>
+    </div>
+
+    <div>
+      <p class="label">Inform Content <span class="required">*</span></p>
+      <textarea name="informContent" placeholder="eg: How Church Are Making Progress" required></textarea>
+    </div>
+    <button class="inform__publish">
+      Publish Inform
+    </button>
+  </form>
+</div>
+
+<style>
+  .input input {
+    border: 1px solid var(--tuna) !important;
+  }
+
+  .informWrite__form {
+    width: 100%;
+    gap: 20px;
+    padding: 20px;
+    border-radius: 10px;
+    border: 1px solid #ccd0d6;
+    background-color: var(--white);
+  }
+
+  .informWrite__header {
+    justify-content: space-between;
+  }
+
+  #image__preview {
+    width: 500px;
+    height: 300px;
+    object-fit: cover;
+    border-radius: 10px;
+    border: 1px solid #ccd0d6;
+  }
+
+  .informWrite__form .label {
+    font-weight: 700;
+  }
+
+  textarea {
+    width: 100%;
+    height: 500px;
+    border-radius: 5px;
+    padding: 10px 20px;
+    font-size: 1.2rem;
+    border: 1px solid var(--tuna);
+  }
+
+  .inform__publish {
+    height: 50px;
+    color: var(--white);
+    background-color: blue;
+  }
+
+  .inform__submit {
+    height: 50px;
+    padding: 0 20px;
+    color: var(--white);
+    background-color: var(--tuna);
+  }
+</style>
+<script type="module">
+  document.getElementById('informImage').addEventListener('change', (e) => {
+    const file = e.target.files[0];
+    const reader = new FileReader();
+    reader.onload = function() {
+      const img = document.getElementById('image__preview');
+      img.src = reader.result;
+    }
+    reader.readAsDataURL(file);
+  })
+</script>

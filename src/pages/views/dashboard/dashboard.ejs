@@ -1,0 +1,57 @@
+<link rel="stylesheet" href="/dashboard.css">
+<div class="dashboard">
+  <%- include("../includes/dashboardNav") %>
+  <div class="dashboard__main">
+    <%- include("../includes/dashboardUpper") %>
+    <div class="dashboard__inner__main">
+      <% if(page === "index"){ %>
+      <%- include("./index") %>
+      <%}%>
+      <% if(page === "queries"){ %>
+      <%- include("./queries") %>
+      <%}%>
+      <% if(page === "logs"){ %>
+      <%- include("./logs") %>
+      <%}%>
+      <% if(page === "users"){ %>
+      <%- include("./users") %>
+      <%}%>
+      <% if(page === "userAbout"){ %>
+      <%- include("./userAbout") %>
+      <%}%>
+      <% if(page === "usersSearch"){ %>
+      <%- include("./userSearch") %>
+      <%}%>
+      <% if(page === "churches"){ %>
+      <%- include("./churches") %>
+      <%}%>
+      <% if(page === "churchAbout"){ %>
+      <%- include("./churchAbout") %>
+      <%}%>
+      <% if(page === "churchSearch"){ %>
+      <%- include("./churchSearch") %>
+      <%}%>
+      <% if(page === "inform"){ %>
+      <%- include("./Inform") %>
+      <%}%>
+      <% if(page === "informWrite"){ %>
+      <%- include("./informWrite") %>
+      <%}%>
+      <% if(page === "error"){ %>
+      <%- include("./error") %>
+      <%}%>   
+      <% if(page === "advertisement"){ %>
+      <%- include("./advertisement") %>
+      <%}%>
+      <% if(page === "settings"){ %>
+      <%- include("./settings") %>
+      <%}%>
+   </div>
+  </div>
+</div>
+<style>
+  
+
+</style>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.7.7/axios.min.js" integrity="sha512-DdX/YwF5e41Ok+AI81HI8f5/5UsoxCVT9GKYZRIzpLxb8Twz4ZwPPX+jQMwMhNQ9b5+zDEefc+dcvQoPWGNZ3g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.30.1/moment.min.js"  crossorigin="anonymous" referrerpolicy="no-referrer"></script>

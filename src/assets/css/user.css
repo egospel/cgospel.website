@@ -1,0 +1,59 @@
+.suspended__container {
+    width: 100%;
+}
+
+.suspended__header {
+    width: 100%;
+    padding: 15px 0;
+    justify-content: space-between;
+}
+
+.suspended__card__container {
+    width: 100%;
+    height: fit-content;
+    border-radius: 10px;
+    padding: 20px;
+    min-height: 400px;
+    justify-content: space-between;
+    background-color: #fff;
+}
+
+.user__card {
+    padding: 10px;
+    color: black;
+    border-radius: 10px;
+    display: inline-block;
+    border: 1px solid #0000001f;
+}
+
+.suspended__card__img {
+    width: 330px;
+    height: 220px;
+    object-fit: cover;
+}
+
+.location {
+    align-items: center;
+}
+
+.location__img {
+    width: 15px;
+    height: 15px;
+}
+
+.location__data {
+    margin-left: 10px;
+    font-size: 16px;
+}
+
+.account__tag {
+    padding: 5px 10px;
+    font-size: 14px;
+}
+
+.no__user {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}

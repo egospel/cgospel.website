@@ -1,0 +1,108 @@
+<link rel="stylesheet" href="/footer.css">
+<footer class="footer col cent">
+  <div class="footer__inner row">
+    <div class="footer__item footer__link__container col cent">
+      <div class="quick__link ">
+        <h2>Quick Links</h2>
+        <div class="quick__link__a row">
+          <a href="/">Home</a>
+          <a href="https://internie.com/company/cgospel">Jobs</a>
+          <a href="/terms">Term's &amp; Condition</a>
+          <a href="/privacy-policy">Privacy Policy</a>
+          <a href="/sitemap.xml">Site Maps</a>
+        </div>
+      </div>
+      <div>
+        <div class="footer__box">
+          <p class="footer__header">Address</p>
+          <p class="subtitle"><b>Office 1: </b> H91 C2HD, United kingdom </p>
+          <p class="subtitle"><b>Office 2: </b>No14 Cartúr mor, Galway, Ireland.</p>
+          <p class="subtitle"><b>Office 3: </b>No. 6 Chaha Road K-vom, Jos, Nigeria</p>
+        </div>
+        <div class="footer__box">
+          <p class="footer__header">Phone</p>
+          <p><a href="tel:+353 851893935">+353 851893935</a></p>
+          <p><a href="tel:+234 7070455046">+234 7070455046</a></p>
+          <div class="footer__box">
+            <p class="footer__header">Email</p>
+            <p><a href="mailto:hello@cgospel.com">hello@cgospel.com</a></p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="footer__item footer__form__container cent">
+      <form action="" class="footer__form col" id="queryForm">
+        <h2>Message</h2>
+        <p class="subtitle">For any queries or collaboration opportunities, please fill out the form below. </p>
+        <p id="messageResponse"></p>
+        <div class="input__box">
+          <p class="label">Name</p>
+          <div class="input">
+            <input type="text" name="name" id="name" required>
+          </div>
+        </div>
+        <div class="input__box">
+          <p class="label">Email</p>
+          <div class="input">
+            <input type="text" name="email" id="email" required>
+          </div>
+        </div>
+        <div class="input__box">
+          <p class="label">Message</p>
+          <textarea name="message" id="message"></textarea>
+        </div>
+        <button class="footer__btn">Submit</button>
+      </form>
+    </div>
+  </div>
+  <div class="footer__copyright cent">
+    <p>
+      All Rights &amp; Trademark Reserved by CG &copy; <%- new Date().getFullYear() %>
+      Developed by <a class="xorblin" href="https://xorblin.com">Xorblin Digital Pvt. Ltd.</a>
+    </p>
+  </div>
+</footer>
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const name = document.getElementById('name');
+    const email = document.getElementById('email');
+    const message = document.getElementById('message');
+    const queryForm = document.getElementById('queryForm');
+    const messageResponse = document.getElementById('messageResponse')
+    queryForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      grecaptcha.enterprise.ready(async () => {
+        const token = await grecaptcha.enterprise.execute('6Lcu6DsqAAAAAIFMTsE8fBdXF8kX2y_ySJo0QYxf', {
+          action: 'LOGIN'
+        });
+        if (!validateQuery()) return;
+        axios.post('/api/query', {
+          name: name.value,
+          email: email.value,
+          message: message.value,
+          token: token
+        }).then(res => {
+          if (res.data.status) {
+            messageResponse.classList.add('query__error')
+            messageResponse.innerHTML = res.data.message
+          } else {
+            messageResponse.innerHTML = res.data.message
+
+          }
+        }).catch(err => {
+          messageResponse.classList.add('query__error')
+          messageResponse.innerHTML = res.data.message
+        });
+      });
+    })
+
+    function validateQuery() {
+      if (name.value === '' || email.value === '' || message.value === '') {
+        alert('Please fill out all fields');
+        return false;
+      }
+      return true;
+    }
+  });
+</script>
+<script src="https://www.google.com/recaptcha/enterprise.js?render=6Lcu6DsqAAAAAIFMTsE8fBdXF8kX2y_ySJo0QYxf"></script>

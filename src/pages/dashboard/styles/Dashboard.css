@@ -1,0 +1,98 @@
+body {
+    background-color: #f3f5f6;
+}
+
+.dashboard {
+    width: 100%;
+    height: fit-content;
+    min-height: 100vh;
+    font-size: 1.2rem;
+}
+
+.dashboard__main {
+    height: 100%;
+    margin-left: 350px;
+    width: calc(100% - 350px);
+}
+
+.dashboard__inner__main {
+    padding: 20px;
+}
+
+.input {
+    height: 50px !important;
+}
+
+input {
+    font-size: 1.2rem !important;
+    border: none !important;
+
+}
+
+.information {
+    width: 100%;
+    justify-content: space-between;
+}
+
+.information__card {
+    width: calc(100% / 4);
+    display: flex;
+    padding: 10px 20px;
+    border-radius: 10px;
+    color: #fff;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.information__card__title {
+    font-size: 1rem;
+    font-weight: 600;
+}
+
+.information__card__count {
+    font-size: 2.5rem;
+}
+
+.data__search {
+    margin-bottom: 30px;
+    padding: 20px 30px;
+    border-radius: 10px;
+    background-color: var(--white);
+    border: 1px solid #ccd0d6;
+
+}
+
+.search__form {
+    gap: 20px;
+}
+
+.search__form input {
+    outline: none !important;
+}
+
+.searchFilter {
+    padding: 0 10px;
+    height: 50px;
+    border: none;
+    border-radius: 5px;
+    font-size: 1.2rem;
+
+}
+
+.search__btn {
+    width: fit-content;
+    height: fit-content;
+    padding: 0 20px;
+    height: 50px;
+    color: var(--white);
+    background-color: var(--tuna);
+}
+
+.required {
+    color: red;
+}
+
+
+.information {
+    justify-content: space-between;
+}

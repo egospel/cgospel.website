@@ -1,0 +1,104 @@
+<div class="data__search">
+  <form action="/ouhatjuusdtnwot/search/user" method="get" class="search__form row">
+    <div class="input">
+      <input type="text" name="search" id="search" placeholder="Search For Inform" autofocus autocomplete="name">
+    </div>
+    <div>
+      <select class="searchFilter" name="typeSearch" id="">
+        <option value="published">Filters</option>
+        <option value="published" default>Published</option>
+        <option value="unpublished">Un Published</option>
+      </select>
+    </div>
+    <button class="search__btn" type="submit">Search</button>
+  </form>
+</div>
+<div class="information row">
+  <div class="information__card total__inform col">
+    <div class="information__card__title">
+      Total Inform
+    </div>
+    <div class="information__card__count" id="totalInform">
+      0
+    </div>
+  </div>
+  <div class="information__card published__inform col">
+    <div class="information__card__title">
+      Published Inform
+    </div>
+    <div class="information__card__count" id="publishedInform">
+      0
+    </div>
+  </div>
+  <div class="information__card unpublished__inform col">
+    <div class="information__card__title">
+      Not Published Inform
+    </div>
+    <div class="information__card__count" id="notPublishedInform">
+      0
+    </div>
+  </div>
+</div>
+<div class="inform__header row">
+  <div>
+    <h2>Inform</h2>
+  </div>
+  <div class="row">
+    <a href="/ouhatjuusdtnwot/inform/write">
+      <button>Write Inform</button>
+    </a>
+    <a href="/ouhatjuusdtnwot/inform/" class="inform__viewAll">
+      <button>View All</button>
+    </a>
+  </div>
+</div>
+<style>
+  .total__inform {
+    background-color: var(--tuna);
+  }
+
+  .published__inform {
+    background-color: green;
+
+  }
+
+  .unpublished__inform {
+    background-color: #ff0000;
+  }
+
+  .inform__header {
+    display: flex;
+    padding: 20px;
+    margin-top: 20px;
+    border-radius: 10px;
+    border: 1px solid #ccd0d6;
+    background-color: var(--white);
+    justify-content: space-between;
+  }
+</style>
+<script type="module">
+  axios.get('/ouhatjuusdtnwot/inform/count/total').then(
+    res => {
+      if (res.data.success) {
+        document.getElementById('totalInform').innerText = res.data.count
+      } else {
+        document.getElementById('totalInform').innerText = 0
+      }
+    }
+  ).catch(err => {
+    alert(err);
+    document.getElementById('totalInform').innerText = 0
+  })
+  axios.get('/ouhatjuusdtnwot/inform/count/published').then(
+    res => {
+      if (res.data.success) {
+        document.getElementById('publishedInform').innerText = res.data.count
+      } else {
+        document.getElementById('publishedInform').innerText = 0
+      }
+    }
+  ).catch(err => {
+    alert(err);
+    document.getElementById('publishedInform').innerText = 0
+  })
+</script>

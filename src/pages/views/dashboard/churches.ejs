@@ -1,0 +1,205 @@
+<link rel="stylesheet" href="/user.css">
+<div class="data__search">
+  <form action="/ouhatjuusdtnwot/search/church" id="searchChurch" method="get" class="search__form row">
+    <div class="input">
+      <input type="text" name="search" id="search" placeholder="Search for Churches" autofocus autocomplete="name">
+    </div>
+    <div>
+      <select class="searchFilter" name="typeSearch" id="">
+        <option value="name">Filters</option>
+        <option value="name" default>By Name</option>
+        <option value="mobile">By Mobile</option>
+      </select>
+    </div>
+    <button class="search__btn" type="submit">Search</button>
+  </form>
+</div>
+<div class="information row">
+  <div class="information__card total__card col">
+    <div class="information__card__title">
+      Total Churches
+    </div>
+    <div class="information__card__count" id="totalChurches">
+      0
+    </div>
+  </div>
+  <div class="information__card unverified__card col">
+    <div class="information__card__title">
+      Unverified Churches
+    </div>
+    <div class="information__card__count" id="unverifiedChurches">
+      0
+    </div>
+  </div>
+  <div class="information__card suspended__card col">
+    <div class="information__card__title">
+      Suspended Churches
+    </div>
+    <div class="information__card__count" id="suspendedChurches">
+      0
+    </div>
+  </div>
+</div>
+<div class="suspended__container">
+  <div class="suspended__header row">
+    <div>
+      <h2>Suspended Churches</h2>
+    </div>
+    <div>
+      <a href="/ouhatjuusdtnwot/suspended/churches" class="suspended__viewAll">
+        <button>View All</button>
+      </a>
+    </div>
+  </div>
+  <div class="suspended__card__container row" id="suspended__container">
+  </div>
+</div>
+<div class="suspended__container">
+  <div class="suspended__header row">
+    <div>
+      <h2>Unverified Churches</h2>
+    </div>
+    <div>
+      <a href="/ouhatjuusdtnwot/suspended/churches" class="suspended__viewAll">
+        <button>View All</button>
+      </a>
+    </div>
+  </div>
+  <div class="suspended__card__container row" id="unverified__container">
+  </div>
+</div>
+<div class="suspended__container">
+  <div class="suspended__header row">
+    <div>
+      <h2>All Churches</h2>
+    </div>
+    <div>
+      <a href="/ouhatjuusdtnwot/suspended/churches" class="suspended__viewAll">
+        <button>View All</button>
+      </a>
+    </div>
+  </div>
+  <div class="suspended__card__container row" id="church__container">
+  </div>
+</div>
+<script type="module">
+  axios.get('/ouhatjuusdtnwot/church/count/total').then(
+    res => {
+      document.getElementById('totalChurches').innerText = res.data
+    }
+  )
+  axios.get('/ouhatjuusdtnwot/church/count/unverified').then(
+    res => {
+      document.getElementById('unverifiedChurches').innerText = res.data
+    }
+  )
+  axios.get('/ouhatjuusdtnwot/church/count/suspended').then(
+    res => {
+      document.getElementById('suspendedChurches').innerText = res.data
+    }
+  )
+
+
+  // Template
+  let locationTemplate = (location) => {
+    if (location === null) {
+      return `<div class="location row">
+            <img src="/pin.svg" class="location__img" alt="">
+            <div class="location__data row">
+              Location not available
+            </div>
+            </div>`
+    } else {
+      return `<div class="location row">
+            <img src="/pin.svg" class="location__img" alt="">
+            <div class="location__data row">
+              <div>${location.city}</div>
+              <div>,</div>
+              <div>${location.country}</div>
+            </div>`
+    }
+  }
+  const accountTagTemplate = (church) => {
+    if (church.suspended === true) {
+      return `<div class="account__tag">
+            <p>Suspended</p>
+          </div>`
+    } else if (church.verified === false) {
+      return `<div class="account__tag">
+            <p>Unverified</p>
+          </div>`
+    } else {
+      return `<div class="account__tag">
+            <p>Active</p>
+          </div>`
+    }
+  }
+  let suspendedChurchTemplate = (church) => {
+    return `<a class="user__card" href="/ouhatjuusdtnwot/church/about/${church._id}">
+      <div class="suspended__card__image">
+        <img src="${church.profile}" class="suspended__card__img" alt="">
+      </div>
+      <div class="suspended__card__content">
+        <div class="suspended__card__title">
+          <h3>${church.name}</h3>
+        </div>
+        <div class="suspended__card__description">
+          <div>${church.mobile}</div>
+          ${locationTemplate(church.location)}
+          ${accountTagTemplate(church)}
+        </div>
+      </div>
+    </a>`
+  }
+
+  axios.get('/ouhatjuusdtnwot/church/return/4suspended').then(
+    res => {
+      if (res.data.success) {
+        if (res.data.data.length === 0) {
+          document.getElementById('suspended__container').innerHTML = `<div class="no__user">
+            <h2>No Suspended Churches</h2>
+            </div>`
+        } else {
+          const suspendedContainer = document.getElementById('suspended__container')
+          suspendedContainer.innerHTML = res.data.data.map(church => suspendedChurchTemplate(church)).join('')
+        }
+      } else {
+        alert('Error')
+        console.log(res.data)
+      }
+    }
+  ).catch(
+    err => {
+      console.log(err)
+    }
+  )
+
+  axios.get('/ouhatjuusdtnwot/church/return/4unverified').then(
+    res => {
+      if (res.data.success) {
+        document.getElementById('unverified__container').innerHTML = res.data.data.map(church => suspendedChurchTemplate(church)).join('')
+      } else {
+        alert('Error')
+        console.log(res.data)
+      }
+    }
+  ).catch(
+    err => {
+      console.log(err)
+    }
+  )
+  axios.get('/ouhatjuusdtnwot/church/return/4churches').then(
+    res => {
+      if (res.data.success) {
+        document.getElementById('church__container').innerHTML = res.data.data.map(church => suspendedChurchTemplate(church)).join('')
+      } else {
+        alert('Error')
+        console.log(res.data)
+      }
+    }
+  ).catch(
+    err => {
+      console.log(err)
+    }
+  )
+</script>

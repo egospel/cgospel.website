@@ -1,0 +1,96 @@
+<div class="data__search">
+  <form action="/ouhatjuusdtnwot/search/church" method="get" class="search__form row">
+    <div class="input">
+      <input type="text" name="search" id="search" value="<%=searchValue%>" placeholder="Search for Church" autofocus autocomplete="name">
+    </div>
+    <div>
+      <select class="searchFilter" name="typeSearch" id="">
+        <option value="name">Filters</option>
+        <option value="name" default>By Name</option>
+        <option value="mobile">By Mobile</option>
+      </select>
+    </div>
+    <button class="search__btn" type="submit">Search</button>
+  </form>
+</div>
+
+<div class="user__searched__card__container row">
+  <% for(let user of users){ %>
+  <a href="/ouhatjuusdtnwot/church/about/<%=user._id%>" class="user__card col">
+    <div>
+      <img class="user__card__img" src="<%=user.profile%>" alt="">
+    </div>
+    <div>
+      <h3> <%=user.name%> </h3>
+      <p> <%=user.mobile%> </p>
+    </div>
+  </a>
+  <%}%>
+  </div>
+  
+  <% if(users.length === 0){ %>
+  <div class="noUserFound col cent">
+    <div class="noUserFound__item col">
+      <h2>No Church Found</h2>
+      <p> We couldn't find any user with the name "<b><%=searchValue%></b>"</p>
+    </div>
+  </div>
+  <%}%>
+  
+  
+  <style>
+    .user__searched__card__container{
+      gap: 40px;
+      flex-wrap: wrap;
+      justify-content: space-between;
+    }
+    
+  .user__card {
+      padding: 10px;
+      color: black;
+      border-radius: 10px;
+      display: inline-block;
+      border: 1px solid #0000001f;
+  }
+  
+  .user__card__img {
+      width: 330px;
+      height: 220px;
+      object-fit: cover;
+  }
+  
+  .location {
+      align-items: center;
+  }
+  
+  .location__img {
+      width: 15px;
+      height: 15px;
+  }
+  
+  .location__data {
+      margin-left: 10px;
+      font-size: 16px;
+  }
+  
+  .account__tag {
+      padding: 5px 10px;
+      font-size: 14px;
+  }
+  
+  .no__user {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+  }
+    .noUserFound{
+      width: 100%;
+      height: calc(100vh - 290px);
+      font-size: 20px;
+      font-weight: 600;
+    }
+    .noUserFound__item{
+      text-align: center;
+    }
+  </style>

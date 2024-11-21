@@ -1,0 +1,176 @@
+<link rel="stylesheet" href="/queries.css">
+<div class="data__search">
+  <form action="/ouhatjuusdtnwot/search/user" method="get" class="search__form row">
+    <div class="input">
+      <input type="text" name="search" id="search" placeholder="Search For Queries" autofocus autocomplete="name">
+    </div>
+    <div>
+      <select class="searchFilter" name="typeSearch" id="">
+        <option value="resolved">Filters</option>
+        <option value="resolved" default>Resolved</option>
+        <option value="unresolved">Un Resolved</option>
+      </select>
+    </div>
+    <button class="search__btn" type="submit">Search</button>
+  </form>
+</div>
+<div class="information row">
+  <div class="information__card total__query col">
+    <div class="information__card__title">
+      Total Queries
+    </div>
+    <div class="information__card__count" id="totalQuery">
+      0
+    </div>
+  </div>
+  <div class="information__card resolved__query col">
+    <div class="information__card__title">
+      Resolved Queries
+    </div>
+    <div class="information__card__count" id="resolvedQuery">
+      0
+    </div>
+  </div>
+  <div class="information__card unresolved__query col">
+    <div class="information__card__title">
+      Unresolved Queries
+    </div>
+    <div class="information__card__count" id="unresolvedQuery">
+      0
+    </div>
+  </div>
+</div>
+
+<div class="queries__container col" id="queries__card__container">
+
+</div>
+
+
+<script type="module">
+  const pageID = 1;
+  let queryData = [];
+  const queriesContainer = document.getElementById('queries__card__container');
+  const resolvedTag = `<div class="query__icon cent query__resolved__icon">
+          <img src="/query__green.svg" alt="">
+        </div>`
+  const unresolvedTag = `<div class="query__icon cent query__unresolved__icon">
+          <img src="/query__red.svg" alt="">
+        </div>`
+  const resolvedAt = (time) => `<p><span>Resolved At: </span>${moment(time).format("MMM Do YY")} </p>`
+  const createdAt = (time) => `<p><span>Query Created At: </span>${moment(time).format("MMM Do YY")}</p>`
+
+  const queryTemplate = (data) => {
+    return `
+      <div class="queries__card">
+    <div class="queries__item">
+      <div class="quires__card__header row">
+        <div>
+          ${data.resolved ? resolvedTag : unresolvedTag}
+          <h2>Query No: ${data.queryID}</h2>
+        </div>
+        <div class="queries__option" id="queries__option__modal">
+          <img id="queries__option__img" class="queries__option" src="/moreOption.svg" alt="" />
+            <div class="queries__option__dropdown">
+              <ul>
+                <li class="makeResolvedQueries" data-id=="${data._id}">Mark as Resolved</li>
+                <li class="makeUNResolvedQueries" data-id=="${data._id}>Mark as Unresolved</li>
+                <li class="deleteQueries"data-id=="${data._id}>Delete</li>
+              </ul>
+            </div>
+        </div>
+      </div>
+      <div class="queries__item__body">
+        <p>${data.message}</p>
+      </div>
+      <div class="queries__item__contact row">
+        <p> <b>${data.name}</b></p>
+        <p class="query__item__email">
+          <a href="mailto:${data.email}">${data.email}</a>
+        </p>
+        <p>
+          ${data.resolved ? resolvedAt(data.updatedAt) : createdAt(data.createdAt)}
+          </p>
+      </div>
+    </div>
+  </div>`
+  }
+  // const loadMenu = 
+  axios.get(`/ouhatjuusdtnwot/queries/all`)
+    .then((response) => {
+      queryData = response.data;
+      const resolved = queryData.filter(query => query.resolved == true);
+      const unresolved = queryData.filter(query => query.resolved == false);
+      document.getElementById('totalQuery').innerText = queryData.length;
+      document.getElementById('resolvedQuery').innerText = resolved.length;
+      document.getElementById('unresolvedQuery').innerText = unresolved.length;
+      queriesContainer.innerHTML = queryData.map(query => queryTemplate(query)).join('');
+      handleAllEvents()
+    })
+    .catch((error) => {
+      console.error(error);
+    });
+
+  function handleAllEvents() {
+    const queriesOption = document.getElementById('queries__option__modal')
+    queriesOption.addEventListener('click', () => {
+      document.querySelector('.queries__option__dropdown').classList.toggle('queries__toggle')
+    })
+    const deleteQueries = document.querySelectorAll('.deleteQueries');
+    const makeResolvedQueries = document.querySelectorAll('.makeResolvedQueries');
+    const makeUNResolvedQueries = document.querySelectorAll('.makeUNResolvedQueries');
+
+    deleteQueries.forEach(query => {
+      query.addEventListener('click', (e) => {
+        const id = e.target.getAttribute('data-id');
+        axios.delete(`/ouhatjuusdtnwot/queries/delete/${id}`)
+          .then((response) => {
+            if (response.error === false) {
+              window.location.reload()
+            }
+          })
+          .catch((error) => {
+            console.error(error);
+            alert('Something Goes Wrong')
+          });
+      })
+    })
+
+    makeResolvedQueries.forEach(query => {
+      query.addEventListener('click', (e) => {
+        const id = e.target.getAttribute('data-id');
+        axios.put(`/ouhatjuusdtnwot/queries/resolved/${id}`, {
+            resolved: true
+          })
+          .then((response) => {
+            console.log(response);
+            if (response.error === false) {
+              window.location.reload()
+            }
+          })
+          .catch((error) => {
+            console.error(error);
+            alert('Something Goes Wrong')
+          });
+      })
+    })
+
+    makeUNResolvedQueries.forEach(query => {
+      query.addEventListener('click', (e) => {
+        const id = e.target.getAttribute('data-id');
+        axios.put(`/ouhatjuusdtnwot/queries/unresolved/${id}`, {
+            resolved: false
+          })
+          .then((response) => {
+            if (response.error === false) {
+              window.location.reload()
+            }
+          })
+          .catch((error) => {
+            console.error(error);
+            alert('Something Goes Wrong')
+          });
+      })
+    })
+
+  }
+</script>
